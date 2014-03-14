@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="lib" path="D:/MERCURIAL/pipeline_cnda_1_5/lib/jfreechart-1.0.3.jar" sourcepath="C:/Users/NRG/.m2/repository/jfree/jfreechart/1.0.3/jfreechart-1.0.3-sources.jar"/>
+	<classpathentry kind="lib" path="D:/MERCURIAL/pipeline_cnda_1_5/lib/jcommon-1.0.6.jar"/>
+	<classpathentry kind="lib" path="D:/MERCURIAL/pipeline_cnda_1_5/lib/PlexiViewer-1.4.jar"/>
+	<classpathentry kind="lib" path="D:/MERCURIAL/pipeline_cnda_1_5/lib/ij-1.43u.jar" sourcepath="C:/Users/NRG/.m2/repository/gov/nih/imagej/imagej/1.43/imagej-1.43-sources.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

@@ -8,6 +8,8 @@ buildscript {
 }
 
 def vXnat = '1.7.2'
+def vSlf4j = "1.7.21"
+
 group 'org.nrg.xnat.pipeline'
 version vXnat
 
@@ -44,10 +46,11 @@ dependencies {
     compile(group: 'jfree', name: 'jfreechart', version:'1.0.13') {
         exclude(module: 'jcommon')
     }
-    compile ("org.nrg.xnat:plexiviewer:${vXnat}") {
-        transitive = false
-    }
+    compile ("org.nrg.xnat:plexiviewer:${vXnat}") { transitive = false }
     compile 'net.imagej:ij:1.50e'
+    compile 'org.dspace:jargon:1.4.25'
+    compile("org.apache.commons:commons-lang3:3.4") { transitive = false }
+    compile("org.slf4j:slf4j-api:${vSlf4j}") { transitive = false }
 
     testCompile 'junit:junit:4.12'
 }

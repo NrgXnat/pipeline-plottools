@@ -77,17 +77,19 @@ publishing {
                 classifier "javadoc"
             }
 
+            artifact shadowJar
+
             pom.withXml {
                 def root = asNode()
-                root.appendNode('name', 'XNAT Pipeline Plot Tools')
+                root.appendNode('name', 'XNAT Pipeline QC Image Creator')
                 root.appendNode('description', '')
-                root.appendNode('url', 'https://github.com/nrgxnat/pipeline-plottools')
+                root.appendNode('url', 'https://github.com/nrgxnat/pipeline-qcimagecreator')
                 root.appendNode('inceptionYear', '2013')
 
                 def scm = root.appendNode('scm')
-                scm.appendNode('url', 'https://github.com/nrgxnat/pipeline-plottools')
-                scm.appendNode('connection', 'scm:https://github.com/nrgxnat/pipeline-plottools.git')
-                scm.appendNode('developerConnection', 'scm:git://github.com/nrgxnat/pipeline-plottools.git')
+                scm.appendNode('url', 'https://github.com/nrgxnat/pipeline-qcimagecreator')
+                scm.appendNode('connection', 'scm:https://github.com/nrgxnat/pipeline-qcimagecreator.git')
+                scm.appendNode('developerConnection', 'scm:git://github.com/nrgxnat/pipeline-qcimagecreator.git')
 
                 def license = root.appendNode('licenses').appendNode('license')
                 license.appendNode('name', 'Simplified BSD 2-Clause License')

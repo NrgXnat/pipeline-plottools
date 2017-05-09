@@ -5,13 +5,13 @@ import ij.ImagePlus;
 import java.io.File;
 import java.util.Hashtable;
 
-import org.nrg.plexiViewer.io.PlexiFileOpener;
-import org.nrg.plexiViewer.lite.io.PlexiFileSaver;
-import org.nrg.plexiViewer.lite.io.PlexiImageFile;
-import org.nrg.plexiViewer.utils.ImageUtils;
-import org.nrg.plexiViewer.utils.LUTApplier;
-import org.nrg.plexiViewer.utils.PlexiConstants;
-import org.nrg.plexiViewer.utils.Transform.PlexiMontageMaker;
+import org.nrg.xnat.plexiviewer.io.PlexiFileOpener;
+import org.nrg.xnat.plexiviewer.lite.io.PlexiFileSaver;
+import org.nrg.xnat.plexiviewer.lite.io.PlexiImageFile;
+import org.nrg.xnat.plexiviewer.utils.ImageUtils;
+import org.nrg.xnat.plexiviewer.utils.LUTApplier;
+import org.nrg.xnat.plexiviewer.utils.PlexiConstants;
+import org.nrg.xnat.plexiviewer.utils.transform.PlexiMontageMaker;
 
 
 public class QcImageCreator {
@@ -152,8 +152,8 @@ public class QcImageCreator {
         //StackProcessor tbproc = new StackProcessor(montage.getStack(), montage.getProcessor());
         //ImageStack tb = tbproc.resize((int)montage.getWidth()/2,(int)montage.getHeight()/2);
         //montage.setStack("",tb);    
-        fs =  new PlexiFileSaver();
-        fs.saveAsJpeg(montage,filename, 100);
+        // fs =  new PlexiFileSaver();
+        fs.saveAsJpeg(montage,filename);
     }
 
     public static void main(String[] args){

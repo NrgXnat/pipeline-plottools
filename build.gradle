@@ -1,12 +1,27 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.4'
+    }
+}
+
 def vXnat = '1.7.2'
 group 'org.nrg.xnat.pipeline'
 version vXnat
 
 apply plugin: 'java'
 apply plugin: 'idea'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+apply plugin: 'application'
+apply plugin: 'com.github.johnrengelman.shadow'
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
+
+mainClassName = "org.nrg.imagingtools.plot.QcImageCreator"
 
 repositories {
     jcenter()
@@ -26,9 +41,84 @@ repositories {
 
 dependencies {
     compile 'jfree:jcommon:1.0.15'
-    compile 'jfree:jfreechart:1.0.13'
-    compile "org.nrg.xnat:plexiviewer:${vXnat}"
+    compile(group: 'jfree', name: 'jfreechart', version:'1.0.13') {
+        exclude(module: 'jcommon')
+    }
+    compile ("org.nrg.xnat:plexiviewer:${vXnat}") {
+        transitive = false
+    }
     compile 'net.imagej:ij:1.50e'
 
     testCompile 'junit:junit:4.12'
+}
+
+task sourceJar(type: Jar, dependsOn: classes) {
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    from javadoc.destinationDir
+}
+
+shadowJar {
+    zip64 = true
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+
+            artifact sourceJar {
+                classifier "sources"
+            }
+
+            artifact javadocJar {
+                classifier "javadoc"
+            }
+
+            pom.withXml {
+                def root = asNode()
+                root.appendNode('name', 'XNAT Pipeline Plot Tools')
+                root.appendNode('description', '')
+                root.appendNode('url', 'https://github.com/nrgxnat/pipeline-plottools')
+                root.appendNode('inceptionYear', '2013')
+
+                def scm = root.appendNode('scm')
+                scm.appendNode('url', 'https://github.com/nrgxnat/pipeline-plottools')
+                scm.appendNode('connection', 'scm:https://github.com/nrgxnat/pipeline-plottools.git')
+                scm.appendNode('developerConnection', 'scm:git://github.com/nrgxnat/pipeline-plottools.git')
+
+                def license = root.appendNode('licenses').appendNode('license')
+                license.appendNode('name', 'Simplified BSD 2-Clause License')
+                license.appendNode('url', 'http://xnat.org/about/license.php')
+                license.appendNode('distribution', 'repo')
+
+                def developers = root.appendNode('developers')
+                def mohanna = developers.appendNode('developer')
+                mohanna.appendNode('id', 'mohannar')
+                mohanna.appendNode('name', 'Mohanna Ramaratnam')
+                mohanna.appendNode('email', 'mohanakannan9@gmail.com')
+            }
+        }
+    }
+    repositories {
+        maven {
+            credentials {
+                // These properties must be set in the ~/.gradle/gradle.properties file or passed on the Gradle command
+                // line in the form -PrepoUsername=foo -PrepoPassword=bar.
+                username propertyWithDefault('repoUsername', 'username')
+                password propertyWithDefault('repoPassword', 'password')
+            }
+            if (project.version.endsWith('-SNAPSHOT')) {
+                url "https://nrgxnat.artifactoryonline.com/nrgxnat/libs-snapshot-local"
+            } else {
+                url "https://nrgxnat.artifactoryonline.com/nrgxnat/libs-release-local"
+            }
+        }
+    }
+}
+
+def propertyWithDefault(String property, Object value) {
+    hasProperty(property) ? getProperty(property) : value
 }

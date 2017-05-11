@@ -11,7 +11,7 @@ def vXnat = '1.7.2'
 def vSlf4j = "1.7.21"
 
 group 'org.nrg.xnat.pipeline'
-version vXnat
+version "2.0"
 
 apply plugin: 'java'
 apply plugin: 'idea'
